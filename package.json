@@ -1,0 +1,17 @@
+{
+  "name": "token",
+  "version": "1.0.0",
+  "description": "codebase for my custom tokens",
+  "main": "truffle.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Mandy Singh",
+  "license": "MIT",
+  "dependencies": {
+    "zeppelin-solidity": "^1.5.0"
+  }
+}
