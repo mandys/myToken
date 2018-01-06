@@ -14,14 +14,14 @@ contract MyCrowdsale is Crowdsale {
 
   MyToken public myToken;
 
-  function MyCrowdsale(uint256 _startTime, uint256 _endTime, uint256 _rate, address _wallet, address _tokenAddress) public
-    Crowdsale(_startTime, _endTime, _rate, _wallet)
-    {
+  function MyCrowdsale(uint256 _startTime, uint256 _endTime, uint256 _rate, address _wallet, address _tokenAddress) 
+    Crowdsale(_startTime, _endTime, _rate, _wallet) public {
       tokenAddress = _tokenAddress;
       token = createTokenContract();
     }
 
   function createTokenContract() internal returns (MintableToken) {
+    myToken = MyToken(tokenAddress);
     return MyToken(tokenAddress);
   }  
 
