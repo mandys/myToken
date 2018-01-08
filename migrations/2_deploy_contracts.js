@@ -1,9 +1,15 @@
-var Whitelist = artifacts.require("./Whitelist.sol");
-var MyToken = artifacts.require("./MyToken.sol");
-var MyCrowdsale = artifacts.require("./MyCrowdsale.sol");
+var Whitelist = artifacts.require("Whitelist.sol");
+var MyToken = artifacts.require("MyToken.sol");
+var MyCrowdsale = artifacts.require("MyCrowdsale.sol");
 
 function latestTime () {
-    return web3.eth.getBlock('latest').timestamp;
+    web3.eth.getBlock('latest', function(error, result){
+        if(!error)
+            return result.timestamp;
+        else
+            console.error(error);
+    })
+    //return web3.eth.getBlock('latest').timestamp;
   }
   
   const duration = {
@@ -21,15 +27,13 @@ module.exports = function(deployer, network, accounts) {
     // Account & Wallet configuration
     var admin            = accounts[0];
     var refundVault      = accounts[0];
-    const startTime      = latestTime() + duration.seconds(30);
+    const startTime      = Date.now()/1000|0 + 120;
     const endTime        = startTime + duration.weeks(1);
     const ethRate        = new web3.BigNumber(100);
     const wallet         = accounts[0];
     const maxTokenSupply = 500e18;
 
     deployer.deploy(MyToken, maxTokenSupply).then(function() {
-        deployer.deploy(MyCrowdsale, startTime, endTime, ethRate, wallet, MyToken.address).then(function() {
-            console.log('Presale contract deployed');
-        });
+        return deployer.deploy(MyCrowdsale, startTime, endTime, ethRate, wallet, MyToken.address);
     });  
 };
