@@ -1,9 +1,14 @@
 pragma solidity ^0.4.17;
 
 import 'zeppelin-solidity/contracts/token/CappedToken.sol';
+import 'zeppelin-solidity/contracts/token/PausableToken.sol';
 
-
-contract MyToken is CappedToken {
+/**
+  Lets make the token pausable so we don't allow trading of the token
+  We will decide at a later point when the token should be made tradable
+  @author Mandy Singh
+ */
+contract MyToken is CappedToken, PausableToken {
 
   string public constant name = "MyToken";
   string public constant symbol = "MTK";
@@ -11,5 +16,6 @@ contract MyToken is CappedToken {
 
   function MyToken(uint256 _cap) 
     CappedToken(_cap) public {
+      paused = true;
   }
 }
