@@ -27,7 +27,7 @@ module.exports = function(deployer, network, accounts) {
     // Account & Wallet configuration
     var admin            = accounts[0];
     var refundVault      = accounts[0];
-    const startTime      = Date.now()/1000|0 + 120;
+    const startTime      = Date.now()/1000|0 + 60;
     const endTime        = startTime + duration.weeks(1);
     const ethRate        = new web3.BigNumber(100);
     const wallet         = accounts[0];
