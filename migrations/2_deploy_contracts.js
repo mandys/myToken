@@ -1,6 +1,6 @@
 var Whitelist = artifacts.require("Whitelist.sol");
-var MyToken = artifacts.require("MyToken.sol");
-var MyCrowdsale = artifacts.require("MyCrowdsale.sol");
+var MyToken   = artifacts.require("MyToken.sol");
+var MyPresale = artifacts.require("MyPresale.sol");
 
 function latestTime () {
     web3.eth.getBlock('latest', function(error, result){
@@ -26,14 +26,14 @@ module.exports = function(deployer, network, accounts) {
     
     // Account & Wallet configuration
     var admin            = accounts[0];
-    var refundVault      = accounts[0];
     const startTime      = Date.now()/1000|0 + 60;
     const endTime        = startTime + duration.weeks(1);
     const ethRate        = new web3.BigNumber(100);
     const wallet         = accounts[0];
     const maxTokenSupply = 500e18;
+    const presaleCap     = 5000e18;
 
     deployer.deploy(MyToken, maxTokenSupply).then(function() {
-        return deployer.deploy(MyCrowdsale, startTime, endTime, ethRate, wallet, MyToken.address);
+        return deployer.deploy(MyPresale, presaleCap, startTime, endTime, ethRate, wallet, MyToken.address);
     });  
 };
