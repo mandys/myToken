@@ -6,6 +6,8 @@ var WalletProvider = require("truffle-wallet-provider");
 var pkey_str = require('fs').readFileSync('./test/keystore/key').toString();
 var prkey_buff = new Buffer(pkey_str, 'hex')
 var wallet = require('ethereumjs-wallet').fromPrivateKey(prkey_buff)
+const defaultGas = 6e6;
+const defaultGasPrice = 5e9;
 
 module.exports = {
   networks: {
@@ -17,7 +19,8 @@ module.exports = {
     rinkeby: {
       provider: new WalletProvider(wallet, "https://rinkeby.infura.io/SNWrFm1CMX7BfYqvkFXf"),
       network_id: 3,
-      gas: 4700000
+      gas: defaultGas,
+      gasPrice: defaultGasPrice
     }
   }
 };
